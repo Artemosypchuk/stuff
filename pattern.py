@@ -3,10 +3,11 @@ if __name__ == "__main__":
 
 
 class Object:
-    def __init__(self, name: str, surname: str, age: int,):
+    def __init__(self, name: str, surname: str, age: int, skill: str):
         self.__name: str = name
         self.__surname: str = surname
         self.__age: int = age
+        self.__skill = skill
 
     @property
     def name(self):
@@ -35,5 +36,15 @@ class Object:
         self.__age = age
         return self.__age
 
+    @property
+    def skill(self):
+        return self.__skill
+
+    @skill.setter
+    def skill(self, age):
+        self.__skill = skill
+        return self.__skill
+
     def info(self):
-        print(self.__name, self.__surname, self.__age)
+        return print("name:", self.__name, "\nsurname:", self.__surname,
+                     "\nage:", self.__age, "\nskill:", self.__skill)

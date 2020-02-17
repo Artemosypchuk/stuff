@@ -1,9 +1,71 @@
 # CLASS WORK 10
 from dev import Dev, add_dev
 from pattern import Object
-
+import json
 
 emploee_list = []
+
+
+def write_json(emploees_dict):
+    try:
+        data = json.load(open("emploees.txt"))
+    except:
+        data = []
+    data.append(emploees_dict)
+    with open("emploees.txt", 'w') as file:
+        json.dump(data, file, indent=2, ensure_ascii=False)
+
+
+def read_json(x):
+    try:
+        emploee_list = list()
+        with open("emploees.txt") as file:
+            emploee_list = json.load(file)
+        for item in emploee_list:
+            if x == 1:
+                print("-"*50)
+                for key, value in item.items():
+                    print(key, ":", value)
+            elif x == 2:
+                new_id = emploee_list[len(emploee_list) - 1]['id']
+                return new_id
+    except Exception as err:
+        print('File not exist! or ', err)
+
+
+def del_employee(x):
+    try:
+        emploee_list = list()
+        with open("emploees.txt") as file:
+            emploee_list = json.load(file)
+        for item in emploee_list:
+            for key, value in item.items():
+                if value == x and key == "id":
+                    if item in emploee_list:
+                        emploee_list.remove(item)
+        with open("emploees.txt", 'w') as file:
+            json.dump(emploee_list, file, indent=2, ensure_ascii=False)
+    except Exception as er:
+        print("Problem",er)
+
+
+def create_emploe(em):
+    empl = em()
+    try:
+        emploee_list = []
+        id_count = read_json(2)
+        id_count += 1
+        person = {"id": id_count, "name": empl.name,
+                  "surname": empl.surname, "age": empl.age, "skill": empl.skill}
+        write_json(person)
+    except:
+        emploee_list = []
+        id_count = int(len(emploee_list))+1
+        person = {"id": id_count, "name": empl.name,
+                  "surname": empl.surname, "age": empl.age, "skill": empl.skill}
+        write_json(person)
+
+
 while True:
     print("""
             "WELLCOME TO FIRM"
@@ -18,11 +80,12 @@ while True:
         print("GOOD BYE MTHFKR-)")
         break
     elif menu_check == 1:
-        print(emploee_list)
+        read_json(1)
     elif menu_check == 2:
-        pass
+        returned = del_employee(int(input(":")))
+        print(returned)
     elif menu_check == 3:
-        pass
+        read_json(2)
     elif menu_check == 4:
         while True:
             print("""
@@ -37,5 +100,4 @@ while True:
             if add_check == 0:
                 break
             elif add_check == 1:
-                new_dev = add_dev()
-                emploee_list.append(new_dev)
+                create_emploe(add_dev)
