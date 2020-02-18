@@ -5,9 +5,9 @@ if __name__ == "__main__":
 
 
 class Dev(Object):
-    def __init__(self, name, surname, age, skill):
+    def __init__(self, name:str, surname:str, age:int, skill:str):
         Object.__init__(self, name, surname, age, skill)
-        self.__skill = skill
+        self.__skill:str = skill
 
 
 def add_dev():

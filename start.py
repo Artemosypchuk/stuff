@@ -1,5 +1,10 @@
 # CLASS WORK 10
 from dev import Dev, add_dev
+from tester import Tester, add_tester
+from ba import Ba, add_ba
+from hr import Hr, add_hr
+
+
 from pattern import Object
 import json
 
@@ -46,7 +51,7 @@ def del_employee(x):
         with open("emploees.txt", 'w') as file:
             json.dump(emploee_list, file, indent=2, ensure_ascii=False)
     except Exception as er:
-        print("Problem",er)
+        print("Problem", er)
 
 
 def create_emploe(em):
@@ -67,37 +72,56 @@ def create_emploe(em):
 
 
 while True:
-    print("""
-            "WELLCOME TO FIRM"
-        1: Show employees
-        2: Kill some employee
-        3: Show employee info you need
-        4: Add employee
-        0: Exit
-      """)
-    menu_check = int(input(": "))
-    if menu_check == 0:
-        print("GOOD BYE MTHFKR-)")
-        break
-    elif menu_check == 1:
-        read_json(1)
-    elif menu_check == 2:
-        returned = del_employee(int(input(":")))
-        print(returned)
-    elif menu_check == 3:
-        read_json(2)
-    elif menu_check == 4:
-        while True:
-            print("""
-                    Add emploee:
-                        1: Add Dev
-                        2: Add Tester
-                        3: Add BA
-                        4: Add HR
-                        0: Back previos
-                  """)
-            add_check = int(input())
-            if add_check == 0:
-                break
-            elif add_check == 1:
-                create_emploe(add_dev)
+    try:
+        print("""
+                "WELLCOME TO FIRM"
+            1: Show employees
+            2: Kill some employee
+            3: Show employee info you need
+            4: Add employee
+            0: Exit
+        """)
+        menu_check = int(input(": "))
+        if menu_check == 0:
+            print("GOOD BYE MTHFKR-)")
+            break
+        elif menu_check == 99:
+            for i in range(0, 10):
+                for x in range(0, 10):
+                    print('*', end="<>")
+                print()
+                print('-'*20)
+        elif menu_check == 1:
+            read_json(1)
+        elif menu_check == 2:
+            print("Enter employees ID to kill him!=)")
+            returned = del_employee(int(input(": ")))
+            print(returned)
+        elif menu_check == 3:
+            read_json(2)
+        elif menu_check == 4:
+            while True:
+                try:
+                    print("""
+                            Add emploee:
+                                1:  + Add Dev
+                                2:  + Add Tester
+                                3:  + Add BA
+                                4:  + Add HR
+                                0: <===Back previos menu
+                        """)
+                    add_check = int(input())
+                    if add_check == 0:
+                        break
+                    elif add_check == 1:
+                        create_emploe(add_dev)
+                    elif add_check == 2:
+                        create_emploe(add_tester)
+                    elif add_check == 3:
+                        create_emploe(add_ba)
+                    elif add_check == 4:
+                        create_emploe(add_hr)
+                except Exception as err:
+                    print('Inner error:', err)
+    except Exception as err:
+        print("Out error:", err)
